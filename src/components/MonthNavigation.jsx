@@ -39,10 +39,34 @@ const Month = styled.button`
   }
 `;
 
-const MonthNavigation = () => {
+const MonthNavigation = ({ setBreakdowns, breakdowns }) => {
+  console.log(breakdowns);
+
+  const handleMonth = (month) => {
+    //month를 받아옴
+    const updatedList = breakdowns.filter(
+      (breakdown) => breakdown.date == month.date
+    );
+    //updatedList는 업데이트된 리스트
+    // 기존 breakdowns에서 필터
+    // (breakdown)를 하나씩 순회
+    // breakdown.date랑month.date 같은거
+    setBreakdowns(updatedList);
+    //setBreakdowns에 업데이트된 리스트를 넣어줌
+    console.log(updatedList);
+  };
+
+  const handleMonth = async (id) => {
+    const { error } = await supabase.from("expenses").delete().eq("id", id);
+    if (error) {
+      return alert(error.message);
+    }
+    setCountries(countries.filter((country) => country.id !== id));
+  };
+
   return (
     <WhiteBox>
-      <Month>1월</Month>
+      <Month onClick={() => handleMonth(setBreakdowns)}>1월</Month>
       <Month>2월</Month>
       <Month>3월</Month>
       <Month>4월</Month>
