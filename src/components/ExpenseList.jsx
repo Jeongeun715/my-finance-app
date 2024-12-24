@@ -74,7 +74,7 @@ const ExpenseList = () => {
   return (
     <WhiteBox>
       <BreakdownAlign>
-        <Breakdown href="/Detail">
+        <Breakdown href="/expenses/:id">
           <AlignOne>
             <Date>2024-01-02</Date>
             <Content>버거킹</Content>
