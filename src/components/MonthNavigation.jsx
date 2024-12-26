@@ -14,7 +14,7 @@ const WhiteBox = styled.section`
   justify-content: center;
 `;
 
-const Month = styled.button`
+const MonthButton = styled.button`
   text-align: center;
   font-family: Pretendard, serif;
   font-size: 18px;
@@ -39,47 +39,22 @@ const Month = styled.button`
   }
 `;
 
-const MonthNavigation = ({ setBreakdowns, breakdowns }) => {
-  console.log(breakdowns);
+const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-  const handleMonth = (month) => {
-    //month를 받아옴
-    const updatedList = breakdowns.filter(
-      (breakdown) => breakdown.date == month.date
-    );
-    //updatedList는 업데이트된 리스트
-    // 기존 breakdowns에서 필터
-    // (breakdown)를 하나씩 순회
-    // breakdown.date랑month.date 같은거
-    setBreakdowns(updatedList);
-    //setBreakdowns에 업데이트된 리스트를 넣어줌
-    console.log(updatedList);
-  };
-
-  const handleMonth = async (id) => {
-    const { error } = await supabase.from("expenses").delete().eq("id", id);
-    if (error) {
-      return alert(error.message);
-    }
-    setCountries(countries.filter((country) => country.id !== id));
-  };
-
+export default function MonthNavigation({ setSelectedMonth, selectedMonth }) {
   return (
     <WhiteBox>
-      <Month onClick={() => handleMonth(setBreakdowns)}>1월</Month>
-      <Month>2월</Month>
-      <Month>3월</Month>
-      <Month>4월</Month>
-      <Month>5월</Month>
-      <Month>6월</Month>
-      <Month>7월</Month>
-      <Month>8월</Month>
-      <Month>9월</Month>
-      <Month>10월</Month>
-      <Month>11월</Month>
-      <Month>12월</Month>
+      {MONTHS.map((element) => {
+        return (
+          <MonthButton
+            key={element}
+            selected={selectedMonth === element}
+            onClick={() => {
+              setSelectedMonth(element);
+            }}
+          >{`${element}월`}</MonthButton>
+        );
+      })}
     </WhiteBox>
   );
-};
-
-export default MonthNavigation;
+}

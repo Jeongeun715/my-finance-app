@@ -15,38 +15,30 @@ const Container = styled.main`
 `;
 
 const Home = () => {
-  const [breakdowns, setBreakdowns] = useState([]); //데이터 저장할 스테이트
+  const [expenses, setExpenses] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState(1); //1월 기준
 
   useEffect(() => {
     //데이터베이스에서 expenses 테이블 조회
-    const fetchData = async () => {
-      const { data, error } = await supabase.from("expenses").select("*");
-      if (error) {
-        console.log("error =>", error);
-      } else {
-        console.log("data =>", data);
-      }
-      setBreakdowns(data);
+    const fetchExpenses = async () => {
+      const { data } = await supabase.from("expenses").select("*");
+      setExpenses(data);
     };
 
-    fetchData();
+    fetchExpenses();
   }, []);
 
+  const filteredExpenses = expenses.filter((expenses) => {
+    const month = new Date(expenses.date).getMonth() + 1;
+    return month === selectedMonth;
+  });
+  console.log(filteredExpenses);
   return (
     <Container>
-      <div>
-        {breakdowns.map((breakdown) => {
-          return (
-            <div key={breakdown.id}>
-              <h5>날짜: {breakdown.date}</h5>
-              <h5>아이템: {breakdown.item}</h5>
-              <h5>가격: {breakdown.amount}</h5>
-              <h5>상세: {breakdown.description}</h5>
-            </div>
-          );
-        })}
-      </div>
-      <MonthNavigation setBreakdowns={setBreakdowns} breakdowns={breakdowns} />
+      <MonthNavigation
+        setExpenses={setExpenses}
+        setSelectedMonth={setSelectedMonth}
+      />
       <CreateExpense />
       <ExpenseList />
     </Container>
