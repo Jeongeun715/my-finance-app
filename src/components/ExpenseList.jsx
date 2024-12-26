@@ -75,11 +75,19 @@ const ExpenseList = () => {
     <WhiteBox>
       <BreakdownAlign>
         <Breakdown href="/expenses/:id">
-          <AlignOne>
-            <Date>2024-01-02</Date>
-            <Content>버거킹</Content>
-          </AlignOne>
-          <Amount>2,000원</Amount>
+          <div>
+            {lists.map((list) => {
+              return (
+                <div key={list.id}>
+                  <AlignOne>
+                    <Date>{list.date}</Date>
+                    <Content>{list.description}</Content>
+                  </AlignOne>
+                  <Amount>{list.amount}</Amount>
+                </div>
+              );
+            })}
+          </div>
         </Breakdown>
       </BreakdownAlign>
     </WhiteBox>
