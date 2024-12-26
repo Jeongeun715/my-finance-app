@@ -39,8 +39,8 @@ const Home = () => {
         setExpenses={setExpenses}
         setSelectedMonth={setSelectedMonth}
       />
-      <CreateExpense />
-      <ExpenseList />
+      <CreateExpense expenses={expenses} setExpenses={setExpenses} />
+      <ExpenseList expenses={filteredExpenses} />
     </Container>
   );
 };
