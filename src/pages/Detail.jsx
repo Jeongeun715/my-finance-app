@@ -83,7 +83,7 @@ const Detail = () => {
   return (
     <WhiteBox>
       <InputAlign>
-        <Label for="date">날짜</Label>
+        <Label htmlFor="date">날짜</Label>
         <Input
           type="text"
           id="date"
@@ -92,15 +92,15 @@ const Detail = () => {
         />
       </InputAlign>
       <InputAlign>
-        <Label for="item">항목</Label>
+        <Label htmlFor="item">항목</Label>
         <Input type="text" id="item" placeholder="지출 항목" value="햄버거" />
       </InputAlign>
       <InputAlign>
-        <Label for="amount">금액</Label>
+        <Label htmlFor="amount">금액</Label>
         <Input type="text" id="amount" placeholder="지출 금액" value="2000" />
       </InputAlign>
       <InputAlign>
-        <Label for="description">내용</Label>
+        <Label htmlFor="description">내용</Label>
         <Input
           type="text"
           id="description"

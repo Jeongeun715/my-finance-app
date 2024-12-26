@@ -14,7 +14,7 @@ const WhiteBox = styled.section`
   justify-content: center;
 `;
 
-const Month = styled.button`
+const MonthButton = styled.button`
   text-align: center;
   font-family: Pretendard, serif;
   font-size: 18px;
@@ -39,23 +39,22 @@ const Month = styled.button`
   }
 `;
 
-const MonthNavigation = () => {
+const MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+export default function MonthNavigation({ setSelectedMonth, selectedMonth }) {
   return (
     <WhiteBox>
-      <Month>1월</Month>
-      <Month>2월</Month>
-      <Month>3월</Month>
-      <Month>4월</Month>
-      <Month>5월</Month>
-      <Month>6월</Month>
-      <Month>7월</Month>
-      <Month>8월</Month>
-      <Month>9월</Month>
-      <Month>10월</Month>
-      <Month>11월</Month>
-      <Month>12월</Month>
+      {MONTHS.map((element) => {
+        return (
+          <MonthButton
+            key={element}
+            selected={selectedMonth === element}
+            onClick={() => {
+              setSelectedMonth(element);
+            }}
+          >{`${element}월`}</MonthButton>
+        );
+      })}
     </WhiteBox>
   );
-};
-
-export default MonthNavigation;
+}
