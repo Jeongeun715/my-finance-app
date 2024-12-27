@@ -80,6 +80,45 @@ const BackButton = styled.button`
 `;
 
 const Detail = () => {
+  // input에 입력한 값을 저장하는 state
+  const [countryName, setCountryName] = useState("");
+  const [population, setPopulation] = useState(0);
+
+  // 수정 때 필요한 인구 입력 state
+  const [editingPopulation, setEditingPopulation] = useState(0);
+  // 수정할 국가 id
+  const [editingId, setEditingId] = useState(null);
+
+  const handleEditClick = (country) => {
+    setEditingId(country.id);
+    setEditingPopulation(country.population);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setEditingPopulation(0);
+  };
+
+  const handleEditPopulationChange = (e) => {
+    setEditingPopulation(e.target.value);
+  };
+
+  const handleSaveEdit = async () => {
+    const { data, error } = await supabase
+      .from("countries")
+      .update({ population: editingPopulation })
+      .eq("id", editingId)
+      .select();
+    if (error) {
+      return alert(error.message);
+    }
+    setCountries(
+      countries.map((country) => (country.id === editingId ? data[0] : country))
+    );
+    setEditingId(null);
+    setEditingPopulation(0);
+  };
+
   return (
     <WhiteBox>
       <InputAlign>
